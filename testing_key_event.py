@@ -1,4 +1,3 @@
-
 import time
 from database_handler import DatabaseHandler
 
@@ -19,9 +18,9 @@ class KeyEventLogger:
         self.current_milli_time = lambda: int(round(time.time() * 1000))
         self.pressed_array = []
         self.released_array = []
-        self.initial_time = 0
-        self.authenticate = False
         self.db_handler = DatabaseHandler()
+        self.last_event = 0
+        self.authenticate = False
 
     def calculate(self):
         # Remove last enter click from equation
@@ -43,16 +42,20 @@ class KeyEventLogger:
 
     def insert_pressed_event(self):
         if len(self.pressed_array) is 0:
-            self.initial_time = self.current_milli_time()
-        self.pressed_array.insert(len(self.pressed_array), self.current_milli_time() - self.initial_time)
+            self.last_event = 0
+            self.pressed_array.insert(0, 0)
+        else:
+            self.pressed_array.insert(len(self.pressed_array), self.current_milli_time() - self.last_event)
+        self.last_event = self.current_milli_time()
 
     def insert_released_event(self):
         if len(self.pressed_array) is not 0:
-            self.released_array.insert(len(self.released_array), self.current_milli_time() - self.initial_time)
+            self.released_array.insert(len(self.released_array), self.current_milli_time() - self.last_event)
+            self.last_event = self.current_milli_time()
 
-    # def backspace_clicked(self):
-        # self.pressed_array.pop(-1)
-        # self.released_array.pop(-1)
+            # def backspace_clicked(self):
+            # self.pressed_array.pop(-1)
+            # self.released_array.pop(-1)
 
     def mode(self, bool_auth):
         if bool_auth:
@@ -62,5 +65,3 @@ class KeyEventLogger:
 
     def has_pressed(self):
         return len(self.pressed_array)
-
-

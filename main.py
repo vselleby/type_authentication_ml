@@ -1,5 +1,4 @@
 
-import time
 from user_handler import UserHandler
 
 if __name__ == "__main__":
@@ -20,5 +19,3 @@ if __name__ == "__main__":
             break
         else:
             print("Select 1, 2 or 3")
-
-

@@ -1,6 +1,6 @@
 from pynput import keyboard
 from testing_key_event import KeyEventLogger
-from globals import NUMBER_SAMPLES
+
 
 
 class KeyListener:

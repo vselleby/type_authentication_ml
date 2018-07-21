@@ -23,7 +23,7 @@ class UserHandler:
         while i < NUMBER_SAMPLES:
             listener = KeyListener()
             i += 1
-            if i != 1:
+            if i != NUMBER_SAMPLES:
                 print("Type your password again, only " + str(NUMBER_SAMPLES - i) + " times left\n")
             listener.stop()
 

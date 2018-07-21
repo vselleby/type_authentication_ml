@@ -1,7 +1,7 @@
 import pickle
 import numpy as np
 import itertools
-from sklearn.covariance import EllipticEnvelope
+# from sklearn.covariance import EllipticEnvelope
 from sklearn.ensemble import IsolationForest
 import os.path
 from globals import NUMBER_SAMPLES
@@ -72,4 +72,3 @@ class DatabaseHandler:
         self.model.fit(np_features)
         pickle.dump(self.model, open(self.file_path + self.username + ".sav", 'wb'))
         print("User created, you can now try authenticating\n")
-
