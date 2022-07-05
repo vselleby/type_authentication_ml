@@ -1,6 +1,5 @@
 import pickle
 import numpy as np
-import itertools
 # from sklearn.covariance import EllipticEnvelope
 from sklearn.ensemble import IsolationForest
 import os.path
@@ -16,8 +15,7 @@ class DbSingleton(type):
         return cls._instances[cls]
 
 
-class DatabaseHandler:
-    __metaclass__ = DbSingleton
+class DatabaseHandler(metaclass=DbSingleton):
 
     def __init__(self):
         self.features = []
@@ -29,8 +27,7 @@ class DatabaseHandler:
 
     def authenticate(self, pressed, released):
         model = pickle.load(open(self.file_path + self.username + ".sav", 'rb'))
-        iters = [iter(pressed), iter(released)]
-        temp_features = list(it.next() for it in itertools.cycle(iters))
+        temp_features = pressed + released
         temp_features = np.array(temp_features)
         temp_features = [temp_features]
         print(model.predict(temp_features))
@@ -41,8 +38,7 @@ class DatabaseHandler:
         return True
 
     def register(self, pressed, released):
-        iters = [iter(pressed), iter(released)]
-        temp_features = list(it.next() for it in itertools.cycle(iters))
+        temp_features = pressed + released
         if len(temp_features) == 0:
             print("You have to enter a password\n")
             return False

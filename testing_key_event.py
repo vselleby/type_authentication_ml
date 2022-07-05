@@ -11,9 +11,7 @@ class Singleton(type):
         return cls._instances[cls]
 
 
-class KeyEventLogger:
-    __metaclass__ = Singleton
-
+class KeyEventLogger(metaclass=Singleton):
     def __init__(self):
         self.current_milli_time = lambda: int(round(time.time() * 1000))
         self.pressed_array = []
@@ -41,7 +39,7 @@ class KeyEventLogger:
         return cond
 
     def insert_pressed_event(self):
-        if len(self.pressed_array) is 0:
+        if len(self.pressed_array) == 0:
             self.last_event = 0
             self.pressed_array.insert(0, 0)
         else:
@@ -49,7 +47,7 @@ class KeyEventLogger:
         self.last_event = self.current_milli_time()
 
     def insert_released_event(self):
-        if len(self.pressed_array) is not 0:
+        if len(self.pressed_array) != 0:
             self.released_array.insert(len(self.released_array), self.current_milli_time() - self.last_event)
             self.last_event = self.current_milli_time()
 

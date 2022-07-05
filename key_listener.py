@@ -1,6 +1,7 @@
 from pynput import keyboard
 from testing_key_event import KeyEventLogger
 
+instance = KeyEventLogger()
 
 
 class KeyListener:
@@ -17,7 +18,6 @@ class KeyListener:
 
     @staticmethod
     def on_press(key):
-        instance = KeyEventLogger()
         try:
             # print('alphanumeric key {0} pressed'.format(
             #     key.char))
@@ -31,7 +31,6 @@ class KeyListener:
 
     @staticmethod
     def on_release(key):
-        instance = KeyEventLogger()
         if instance.has_pressed():
             instance.insert_released_event()
             # print('{0} released'.format(key))

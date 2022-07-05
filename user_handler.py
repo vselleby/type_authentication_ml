@@ -14,17 +14,19 @@ class UserHandler:
         db = DatabaseHandler()
         cond = False
         while not cond:
-            username = raw_input("Type desired username\n")
+            username = input("Type desired username\n")
             cond = db.check_available(username)
             if not cond:
                 print("Username not available, try another one\n")
+            else:
+                print("Username available!")
         print("Type your password " + str(NUMBER_SAMPLES) + " times\n")
         i = 0
         while i < NUMBER_SAMPLES:
             listener = KeyListener()
             i += 1
             if i != NUMBER_SAMPLES:
-                print("Type your password again, only " + str(NUMBER_SAMPLES - i) + " times left\n")
+                input("Type your password again, only " + str(NUMBER_SAMPLES - i) + " times left\n")
             listener.stop()
 
     def authenticate_user(self):
@@ -32,7 +34,7 @@ class UserHandler:
         db = DatabaseHandler()
         cond = True
         while cond:
-            username = raw_input("Type your username\n")
+            username = input("Type your username\n")
             cond = db.check_available(username)
             if cond:
                 print("Username does not exist")
