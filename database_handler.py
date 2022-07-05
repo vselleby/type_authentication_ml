@@ -30,8 +30,12 @@ class DatabaseHandler(metaclass=DbSingleton):
         temp_features = pressed + released
         temp_features = np.array(temp_features)
         temp_features = [temp_features]
-        print(model.predict(temp_features))
-        if model.predict(temp_features)[0] == 1:
+        try:
+            authenticated = model.predict(temp_features)[0] == 1
+        except ValueError:
+            authenticated = False
+
+        if authenticated:
             print("-------------Authenticated---------------")
         else:
             print("------------Not Authenticated------------")
